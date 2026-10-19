@@ -49,7 +49,13 @@ class IslandService : Service() {
             render()
         }
     }
-    private val prefL = SharedPreferences.OnSharedPreferenceChangeListener { _, _ -> applyLayout() }
+    private val prefL = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        applyLayout()
+        if (key == "gizle") {
+            if (prefs.getBoolean("gizle", false)) DurumCubugu.uygula(this)
+            else DurumCubugu.geriGetir(this)
+        }
+    }
     private val tick = object : Runnable {
         override fun run() { render(); h.postDelayed(this, 2000) }
     }
@@ -83,6 +89,7 @@ class IslandService : Service() {
 
         registerReceiver(battRx, IntentFilter(Intent.ACTION_BATTERY_CHANGED), Context.RECEIVER_NOT_EXPORTED)
         prefs.registerOnSharedPreferenceChangeListener(prefL)
+        if (prefs.getBoolean("gizle", false)) DurumCubugu.uygula(this)
         try {
             val tm = getSystemService(TelephonyManager::class.java)
             sig = tm.signalStrength?.level ?: 0
@@ -140,7 +147,11 @@ class IslandService : Service() {
         ring.update(pct, charging, sig, wifiLevel())
     }
 
-    override fun onStartCommand(i: Intent?, f: Int, id: Int) = START_STICKY
+    override fun onStartCommand(i: Intent?, f: Int, id: Int): Int {
+        // START_STICKY ile yeniden başladıysa gizlemeyi tazele
+        if (this::prefs.isInitialized && prefs.getBoolean("gizle", false)) DurumCubugu.uygula(this)
+        return START_STICKY
+    }
     override fun onBind(i: Intent?): IBinder? = null
 
     override fun onDestroy() {
@@ -151,6 +162,8 @@ class IslandService : Service() {
             telCb?.let { getSystemService(TelephonyManager::class.java).unregisterTelephonyCallback(it) }
             wm.removeView(ring)
         }
+        // Servis durunca durum çubuğu simgeleri geri gelsin (orijinal değer neyse o)
+        DurumCubugu.geriGetir(this)
         super.onDestroy()
     }
 }

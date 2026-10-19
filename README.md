@@ -27,7 +27,7 @@ ekranın üstündeki deliğin çevresinde durum bilgisini gösterir.
 
 ## Kurulum
 
-1. [Releases](https://github.com/tastoprak/Ring-of-Android/releases) sayfasından `ring-of-android-1.0.apk` dosyasını indirin.
+1. [Releases](https://github.com/tastoprak/Ring-of-Android/releases) sayfasından en yeni APK'yı (`ring-of-android-1.1.apk`) indirin.
 2. Telefonda "bilinmeyen kaynaklara izin ver" deyip kurun.
 3. Uygulamayı açın ve sırayla dokunun:
    **1)** Üstte gösterme izni → **2)** Telefon + bildirim izni → **3)** Başlat.
@@ -48,6 +48,30 @@ Değişiklikler kaydırıcı bırakılır bırakılmaz uygulanır (servis yenide
 
 Halka bilerek **dokunulamaz** (`FLAG_NOT_TOUCHABLE`): altındaki uygulamaya dokunmayı engellemez.
 Bu yüzden taşımak için kaydırıcıları kullanın.
+
+## Durum çubuğu simgelerini gizle (isteğe bağlı)
+
+Halka pil/şebeke/Wi-Fi'yi zaten gösterdiği için durum çubuğunun **sağ üstündeki** aynı simgeler
+fazlalık olabilir. Uygulama, ring çalışırken bu simgeleri gizleyebilir.
+
+Android normal uygulamalara durum çubuğunu değiştirme izni vermez; bu yüzden **bir kereliğine**
+bilgisayardan izin vermeniz gerekir (USB hata ayıklama açık olmalı):
+
+```bash
+adb shell pm grant com.batuhan.island android.permission.WRITE_SECURE_SETTINGS
+```
+
+Sonra uygulamada **"Sağ üstteki simgeleri gizle (pil · Wi-Fi · şebeke)"** kutusunu işaretleyin.
+
+- Gizleme, SystemUI'nin okuduğu `Settings.Secure → icon_blacklist` anahtarına `battery,wifi,mobile`
+  eklenerek yapılır; başka bir aracın yazdığı değerler **silinmez**, üzerine eklenir.
+- Ring **Durdur** ile kapatıldığında (veya servis sonlandığında) saklanan önceki değer **aynen geri yazılır**;
+  kendi Sistem UI Tuner / gizli simge ayarlarınız bozulmaz.
+- Etki **sistem genelidir** (yalnız ana ekran değil): halka her uygulamada göründüğü için simgeler her yerde gereksizdir.
+- İzin, uygulama kaldırılana kadar geçerlidir ve yeniden başlatmalarda kaybolmaz.
+- Root'lu cihazda ADB yerine: `su -c "pm grant com.batuhan.island android.permission.WRITE_SECURE_SETTINGS"`.
+- Bazı üretici ROM'ları (ör. MIUI) `icon_blacklist` anahtarını yok sayabilir; o durumda simgeler gizlenmez.
+- Uygulama çökerse simgeler gizli kalabilir; uygulamayı bir kez açmak (veya "geri getir" düğmesi) eski hâle döndürür.
 
 ## Nasıl çalışıyor
 
@@ -109,4 +133,7 @@ No libraries, no AndroidX, no analytics — and **no internet permission**.
   then grant overlay / phone-state / notification permissions and press *Başlat* (Start).
 - **Build:** JDK 17 + Gradle 8.9 + Android SDK 34, then `gradle assembleDebug` (no wrapper in the repo).
 - **Settings:** vertical/horizontal offset and diameter via sliders; the overlay is intentionally not touchable.
+- **Hide the duplicated status-bar icons (optional):** grant `WRITE_SECURE_SETTINGS` once via
+  `adb shell pm grant com.batuhan.island android.permission.WRITE_SECURE_SETTINGS`, then tick the checkbox in the app.
+  It appends `battery,wifi,mobile` to `Settings.Secure → icon_blacklist` and restores the previous value when the ring stops.
 - **License:** MIT. The APK in Releases is debug-signed (personal sideloading, not a store build).
