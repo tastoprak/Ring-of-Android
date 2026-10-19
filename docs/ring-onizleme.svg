@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Ring of Android: pil %75, sebekeye 3/4, Wi-Fi 3/3 gosteren yuzuk">
+  <rect width="512" height="512" rx="72" fill="#0B0F14"/>
+  <circle cx="256" cy="118" r="14" fill="#05070A"/>
+    <circle cx="256.00" cy="30.72" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="325.62" cy="41.75" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="388.42" cy="73.74" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="438.26" cy="123.58" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="470.25" cy="186.38" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="481.28" cy="256.00" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="470.25" cy="325.62" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="438.26" cy="388.42" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="388.42" cy="438.26" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="325.62" cy="470.25" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="256.00" cy="481.28" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="186.38" cy="470.25" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="123.58" cy="438.26" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="73.74" cy="388.42" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="41.75" cy="325.62" r="23.04" fill="#FFFFFF" opacity="1"/>
+  <circle cx="30.72" cy="256.00" r="23.04" fill="#FFFFFF" opacity="0.28"/>
+  <circle cx="41.75" cy="186.38" r="23.04" fill="#FFFFFF" opacity="0.28"/>
+  <circle cx="73.74" cy="123.58" r="23.04" fill="#FFFFFF" opacity="0.28"/>
+  <circle cx="123.58" cy="73.74" r="23.04" fill="#FFFFFF" opacity="0.28"/>
+  <circle cx="186.38" cy="41.75" r="23.04" fill="#FFFFFF" opacity="0.28"/>
+  <path d="M 128.48 366.85 A 168.96 168.96 0 0 1 95.77 202.39" fill="none" stroke="#FFFFFF" stroke-width="30.72" stroke-linecap="round" opacity="1"/>
+  <path d="M 104.79 180.61 A 168.96 168.96 0 0 1 244.21 87.45" fill="none" stroke="#FFFFFF" stroke-width="30.72" stroke-linecap="round" opacity="1"/>
+  <path d="M 267.79 87.45 A 168.96 168.96 0 0 1 407.21 180.61" fill="none" stroke="#FFFFFF" stroke-width="30.72" stroke-linecap="round" opacity="1"/>
+  <path d="M 416.23 202.39 A 168.96 168.96 0 0 1 383.52 366.85" fill="none" stroke="#FFFFFF" stroke-width="30.72" stroke-linecap="round" opacity="0.28"/>
+  <path d="M 223.42 284.86 A 46.08 46.08 0 0 1 288.58 284.86" fill="none" stroke="#FFFFFF" stroke-width="28.16" stroke-linecap="round" opacity="1"/>
+  <path d="M 198.07 259.51 A 81.92 81.92 0 0 1 313.93 259.51" fill="none" stroke="#FFFFFF" stroke-width="28.16" stroke-linecap="round" opacity="1"/>
+  <path d="M 172.73 234.17 A 117.76 117.76 0 0 1 339.27 234.17" fill="none" stroke="#FFFFFF" stroke-width="28.16" stroke-linecap="round" opacity="1"/>
+  <circle cx="256.0" cy="317.44" r="17.92" fill="#FFFFFF" opacity="1"/>
+</svg>
