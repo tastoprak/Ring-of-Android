@@ -6,9 +6,9 @@
 iPhone'daki "Dynamic Island" fikrinin Android'deki sade yorumu: bildirim çubuğunu açmadan,
 ekranın üstündeki deliğin çevresinde durum bilgisini gösterir.
 
-![Önizleme](docs/ring-onizleme.svg)
+![Önizleme](docs/ring-onizleme.png)
 
-> Görsel, `RingView`'in çizim kodundaki aynı parametrelerle üretildi: pil %75, şebeke 3/4, Wi-Fi 3/3.
+> Görsel, `RingView`'in çizim kodundaki aynı parametrelerle üretildi (kaynak: `docs/ring-onizleme.svg`): pil %75, şebeke 3/4, Wi-Fi 3/3.
 > Telefonda görünen uygulama adı **Island**'dır; depo/proje adı Ring of Android.
 
 ## Ne gösteriyor
