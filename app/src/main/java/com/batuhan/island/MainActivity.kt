@@ -28,10 +28,9 @@ class MainActivity : Activity() {
         prefs = getSharedPreferences("island", MODE_PRIVATE)
 
         // Uygulama/servis düştüyse durum çubuğu gizli kalmasın:
-        // halka çalışmıyorken gizleme anlamsız, eski hâle dön.
+        // halka çalışmıyorken gizleme anlamsız, eski hâle dön (tercih korunur).
         if (DurumCubugu.uygulanmisMi(this) && !servisCalisiyor()) {
             DurumCubugu.geriGetir(this)
-            prefs.edit().putBoolean("gizle", false).apply()
         }
 
         val pad = (16 * resources.displayMetrics.density).toInt()
@@ -65,8 +64,14 @@ class MainActivity : Activity() {
         btn("2) Telefon + bildirim izni") {
             requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE, Manifest.permission.POST_NOTIFICATIONS), 1)
         }
-        btn("3) Başlat") { startForegroundService(Intent(this, IslandService::class.java)) }
-        btn("Durdur") { stopService(Intent(this, IslandService::class.java)) }
+        btn("3) Başlat") {
+            startForegroundService(Intent(this, IslandService::class.java))
+            gecikmeliYenile()
+        }
+        btn("Durdur") {
+            stopService(Intent(this, IslandService::class.java))
+            gecikmeliYenile()
+        }
 
         // ---- durum çubuğu (sağ üst) simgelerini gizleme ----
         izinYazi = TextView(this).apply {
@@ -89,7 +94,7 @@ class MainActivity : Activity() {
                 return@setOnCheckedChangeListener
             }
             prefs.edit().putBoolean("gizle", checked).apply()
-            if (checked) DurumCubugu.uygula(this@MainActivity) else DurumCubugu.geriGetir(this@MainActivity)
+            // Uygulama servis çalışırken gizler/geri getirir; burada sadece tercih kaydedilir.
             izinDurumuYenile()
         }
         col.addView(kutu)
@@ -117,10 +122,20 @@ class MainActivity : Activity() {
 
     private fun izinDurumuYenile() {
         if (!::izinYazi.isInitialized) return
-        izinYazi.text = if (DurumCubugu.izinVarMi(this))
-            "Yetki: verildi ✓ — gizleme kullanılabilir"
-        else
-            "Yetki: verilmedi — gizlemek için bir kereliğine ADB ile izin verin"
+        val izin = DurumCubugu.izinVarMi(this)
+        val gizle = prefs.getBoolean("gizle", false)
+        val calisiyor = servisCalisiyor()
+        izinYazi.text = when {
+            !izin -> "Yetki: verilmedi — gizlemek için bir kereliğine ADB ile izin verin"
+            gizle && calisiyor -> "Yetki: verildi ✓ — simgeler şu anda gizli"
+            gizle -> "Yetki: verildi ✓ — ring başlatılınca gizlenecek"
+            else -> "Yetki: verildi ✓ — gizleme kapalı"
+        }
+    }
+
+    /** Servis başlat/durdur sonrası durumu kısa bir gecikmeyle tazele. */
+    private fun gecikmeliYenile() {
+        android.os.Handler(mainLooper).postDelayed({ izinDurumuYenile() }, 800)
     }
 
     private fun izinDialog() {
